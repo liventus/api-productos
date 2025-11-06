@@ -6,7 +6,9 @@ import com.lizana.api_productos.persistence.entity.Product;
 import com.lizana.api_productos.persistence.repository.ProductRepository;
 import com.lizana.api_productos.service.ProductService;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -26,10 +28,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Mono<Product> findById(Integer id) {
-        return productRepository.findById(id)
-                .switchIfEmpty(Mono.error(
-                        new ObjectNotFoundException("Producto con ID " + id + " no encontrado")
-                ));
+        return productRepository.findById(id);
     }
 
     @Override
